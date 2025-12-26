@@ -10,5 +10,6 @@ public interface OrderService {
 	List<Order> getAllOrders(int currentPage);
 	int getPageTotal();
 	List<Order> getOrdersByCompositeQuery(Map<String,String[]>map);
+	void deleteOrder(int orderId);
 	
 }

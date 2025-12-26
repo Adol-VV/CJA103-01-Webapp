@@ -48,5 +48,9 @@ public class OrderServiceImpl implements OrderService{
 		}
 		return  dao.getByCompositeQuery(query);
 	}
+	@Override
+	public void deleteOrder(int orderId) {
+		dao.delete(orderId);
+	}
 
 }

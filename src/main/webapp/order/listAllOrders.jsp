@@ -26,6 +26,7 @@
 			<th>折價幣</th>
 			<th>應付帳款</th>
 			<th>應帳狀態</th>
+			<th>修改刪除</th>
 		</tr>
 		
 		<c:forEach var="order" items="${orderList}">
@@ -39,6 +40,23 @@
 				<td>${order.token}</td>
 				<td>${order.payable}</td>
 				<td>${order.status}</td>
+				<td>
+                <div style="display: flex; justify-content: center; gap: 5px;">
+                    <form method="post" action="${pageContext.request.contextPath}/order/order.do">
+                        <input type="hidden" name="orderId" value="${order.orderId}">
+                        <input type="hidden" name="action" value="update">
+                        <input type="submit" value="修改">
+                    </form>
+
+                    <form method="post" action="${pageContext.request.contextPath}/order/order.do" 
+                          onsubmit="return confirm('確定要刪除訂單編號: ${order.orderId} 嗎？');">
+                        <input type="hidden" name="orderId" value="${order.orderId}">
+                        <input type="hidden" name="whichPage" value="listAllOrders">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="submit" value="刪除" style="color: red;">
+                    </form>
+                </div>
+            	</td>
 			</tr>
 		</c:forEach>
 	</table>

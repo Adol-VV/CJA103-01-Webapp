@@ -41,6 +41,11 @@ public class OrderServlet extends HttpServlet{
 		case "compositeQuery":
 			forwardPath = getCompositeOrdersQuery(req,res);
 			break;
+		case "update":
+			break;
+		case "delete":
+			forwardPath = deleteOrder(req,res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -48,7 +53,13 @@ public class OrderServlet extends HttpServlet{
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	};
-	
+	private String deleteOrder(HttpServletRequest req, HttpServletResponse res) {
+		String id = req.getParameter("orderId");
+		int orderId = Integer.valueOf(id);
+		orderService.deleteOrder(orderId);
+		
+		return "/index.jsp";
+	}
 	private String getAllOrder(HttpServletRequest req, HttpServletResponse res) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null)? 1:Integer.valueOf(page);
@@ -110,6 +121,7 @@ public class OrderServlet extends HttpServlet{
 			return "/index.jsp";
 		}
 		Map<String,String[]> map = req.getParameterMap();
+		
 		if (map == null || map.isEmpty()) {
 	        return "/index.jsp";
 	    }
