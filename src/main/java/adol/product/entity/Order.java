@@ -1,4 +1,4 @@
-package adol.entity;
+package adol.product.entity;
 
 
 import java.sql.Date;
@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="prod_order")
-public class order {
+public class Order {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
