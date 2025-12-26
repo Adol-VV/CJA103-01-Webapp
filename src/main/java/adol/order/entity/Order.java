@@ -1,7 +1,7 @@
 package adol.order.entity;
 
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="prod_order")
@@ -26,6 +28,7 @@ public class Order {
 	private Integer organizerId;
 	
 	@Column(name="CREATED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 	
 	@Column(name="TOTAL")
@@ -38,7 +41,7 @@ public class Order {
 	private Integer payable;
 	
 	@Column(name="PAY_STATUS")
-	private Integer status;
+	private Byte  status;
 
 	public Integer getOrderId() {
 		return orderId;
@@ -96,11 +99,17 @@ public class Order {
 		this.payable = payable;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public String getStatus() {
+		String orderStatus;
+		if(status == 1) {
+			orderStatus = "已付款";
+		}else {
+			orderStatus = "未付款";
+		}
+		return orderStatus;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(Byte  status) {
 		this.status = status;
 	}
 	

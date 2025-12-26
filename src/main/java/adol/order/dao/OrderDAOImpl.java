@@ -1,7 +1,6 @@
 package adol.order.dao;
 import static adol.util.Constants.PAGE_MAX_RESULT;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,17 +56,17 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public List<Order> getAll() {
 		// TODO Auto-generated method stub
-		return getSession().createQuery("from prod_order",Order.class).getResultList();
+		return getSession().createQuery("from Order",Order.class).getResultList();
 	}
 
 	@Override
 	public List<Order> getAll(int currentPage) {
-		// TODO Auto-generated method stub
-		int page = (currentPage-1)*PAGE_MAX_RESULT;
-		return getSession().createQuery("from prod_order",Order.class).
-				setFirstResult(page).
-				setMaxResults(PAGE_MAX_RESULT).
-				getResultList();
+	    Session session = getSession();
+	    int page = (currentPage - 1) * PAGE_MAX_RESULT;
+	    return session.createQuery("from Order", Order.class) // 注意：這裡要用類別名
+	                  .setFirstResult(page)
+	                  .setMaxResults(PAGE_MAX_RESULT)
+	                  .getResultList();
 	}
 
 	@Override
@@ -126,7 +125,7 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public long getTotal() {
 		// TODO Auto-generated method stub
-		return getSession().createQuery("select count(*) from prod_order",long.class).
+		return getSession().createQuery("select count(*) from Order",long.class).
 				getSingleResult();
 	}
 

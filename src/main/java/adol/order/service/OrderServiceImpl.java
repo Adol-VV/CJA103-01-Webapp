@@ -19,8 +19,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 	@Override
 	public List<Order> getAllOrders(int currentPage) {
-		dao.getAll(currentPage);
-		return null;
+		
+		return dao.getAll(currentPage);
 	}
 
 	@Override
