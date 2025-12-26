@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService{
 				continue;
 			}
 			String value = row.getValue()[0];
-			if (value == null || value.isEmpty()) {
+			if (value == null || value.isEmpty() ||value.trim().length() == 0) {
 				continue;
 			}
 			query.put(key, value);

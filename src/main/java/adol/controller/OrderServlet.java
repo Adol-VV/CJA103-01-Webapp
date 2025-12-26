@@ -1,6 +1,7 @@
 package adol.controller;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -62,14 +63,60 @@ public class OrderServlet extends HttpServlet{
 		return "/order/listAllOrders.jsp";
 	}
 	private String getCompositeOrdersQuery(HttpServletRequest req, HttpServletResponse res) {
-
-		Map<String,String[]> map = req.getParameterMap();
-		if(map !=null) {
-			List<Order> orderList=  orderService.getOrdersByCompositeQuery(map);
-			req.setAttribute("orderList", orderList);
-		}else {
+		List<String> errorMsgs = new LinkedList<>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		String mIdStr = req.getParameter("memberId");
+		String sp = req.getParameter("startpay");
+		String ep = req.getParameter("endpay");
+		
+		if(mIdStr!=null && mIdStr.trim().length() !=0) {
+			if(!mIdStr.trim().matches("\\d+")) {
+				errorMsgs.add("ID 必須是數字");
+			}
+		}
+		
+		Integer startPay = null;
+		if(sp!=null && sp.trim().length() !=0) {
+			
+			try {
+				startPay = Integer.valueOf(sp.trim());
+				if(startPay<0) {
+					errorMsgs.add("最低金額不能小於0");
+				}
+			}catch(NumberFormatException e){
+				errorMsgs.add("起始價格必須為數字");
+			}
+		}
+		
+		Integer endPay =null;
+		if(ep!=null && ep.trim().length() !=0) {
+			
+			try {
+				endPay = Integer.valueOf(ep.trim());
+				if(endPay<0) {
+					errorMsgs.add("最高金額不能小於0");
+				}
+			}catch(NumberFormatException e){
+				errorMsgs.add("最高價格必須為數字");
+			}
+		}
+		
+		if(startPay !=null && endPay !=null && startPay>endPay) {
+			errorMsgs.add("起始價格大於最高價格");
+		}
+		
+		if(!errorMsgs.isEmpty()) {
 			return "/index.jsp";
 		}
+		Map<String,String[]> map = req.getParameterMap();
+		if (map == null || map.isEmpty()) {
+	        return "/index.jsp";
+	    }
+		
+		
+		List<Order> orderList=  orderService.getOrdersByCompositeQuery(map);
+		req.setAttribute("orderList", orderList);
 		return "/order/listCompositeQueryOrders.jsp";
 	}
 	

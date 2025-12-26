@@ -84,7 +84,7 @@ public class OrderDAOImpl implements OrderDAO{
 			predicates.add(builder.between(root.get("createdDate"), Date.valueOf(map.get("startorderdate")), Date.valueOf(map.get("endorderdate"))));
 		}
 		if(map.containsKey("startpay") && map.containsKey("endpay")) {
-			predicates.add(builder.between(root.get("TOTAL"),Integer.valueOf(map.get("startpay")), Integer.valueOf(map.get("endpay"))));
+			predicates.add(builder.between(root.get("total"),Integer.valueOf(map.get("startpay")), Integer.valueOf(map.get("endpay"))));
 		}
 		for(Map.Entry<String, String> row :map.entrySet()) {
 			if("memberId".equals(row.getKey())) {
