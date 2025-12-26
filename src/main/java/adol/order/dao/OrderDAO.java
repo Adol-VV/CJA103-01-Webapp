@@ -1,11 +1,11 @@
-package adol.product.dao;
+package adol.order.dao;
 
 import java.util.List;
 import java.util.Map;
 
-import adol.product.entity.Order;
+import adol.order.entity.Order;
 
-public interface ProductDAO {
+public interface OrderDAO {
 	
 	void insert(Order order);
 	void update(Order order);

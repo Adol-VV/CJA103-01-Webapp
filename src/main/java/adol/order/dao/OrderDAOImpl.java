@@ -1,4 +1,4 @@
-package adol.product.dao;
+package adol.order.dao;
 import static adol.util.Constants.PAGE_MAX_RESULT;
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import adol.product.entity.Order;
+import adol.order.entity.Order;
 import adol.util.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -18,9 +18,9 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
-public class ProductDAOImpl implements ProductDAO{
+public class OrderDAOImpl implements OrderDAO{
 	private SessionFactory factory;
-	public ProductDAOImpl() {
+	public OrderDAOImpl() {
 		factory = HibernateUtil.getSessionFactory();
 	}
 	private Session getSession() {

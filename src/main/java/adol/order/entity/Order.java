@@ -1,4 +1,4 @@
-package adol.product.entity;
+package adol.order.entity;
 
 
 import java.sql.Date;
