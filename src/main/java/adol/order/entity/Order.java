@@ -99,14 +99,8 @@ public class Order {
 		this.payable = payable;
 	}
 
-	public String getStatus() {
-		String orderStatus;
-		if(status == 1) {
-			orderStatus = "已付款";
-		}else {
-			orderStatus = "未付款";
-		}
-		return orderStatus;
+	public Byte getStatus() {
+		return status;
 	}
 
 	public void setStatus(Byte  status) {

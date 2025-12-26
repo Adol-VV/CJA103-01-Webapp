@@ -42,9 +42,13 @@ public class OrderServlet extends HttpServlet{
 			forwardPath = getCompositeOrdersQuery(req,res);
 			break;
 		case "update":
+			forwardPath = updatePage(req,res);
 			break;
 		case "delete":
 			forwardPath = deleteOrder(req,res);
+			break;
+		case "updateOrder":
+			forwardPath = updateOrder(req,res);
 			break;
 		default:
 			forwardPath = "/index.jsp";
@@ -53,6 +57,27 @@ public class OrderServlet extends HttpServlet{
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	};
+	
+	private String updateOrder(HttpServletRequest req, HttpServletResponse res) {
+		String id = req.getParameter("orderId");
+		int orderId = Integer.valueOf(id);
+		int total = Integer.valueOf(req.getParameter("total"));
+		String status = req.getParameter("status");
+		Order order = orderService.getOneOrder(Integer.valueOf(id));
+		order.setTotal(total);
+		order.setPayable(order.getTotal()-order.getToken());
+		order.setStatus(Byte.valueOf(status));
+		orderService.updateOrder(order);
+		return "/index.jsp";
+	}
+	
+	private String updatePage(HttpServletRequest req, HttpServletResponse res) {
+		String id = req.getParameter("orderId");
+		Order order = orderService.getOneOrder(Integer.valueOf(id));
+	    req.setAttribute("order", order);
+		return "/order/OrdersUpdate.jsp";
+	}
+	
 	private String deleteOrder(HttpServletRequest req, HttpServletResponse res) {
 		String id = req.getParameter("orderId");
 		int orderId = Integer.valueOf(id);
@@ -60,6 +85,7 @@ public class OrderServlet extends HttpServlet{
 		
 		return "/index.jsp";
 	}
+	
 	private String getAllOrder(HttpServletRequest req, HttpServletResponse res) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null)? 1:Integer.valueOf(page);

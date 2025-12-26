@@ -9,9 +9,6 @@
 </head>
 <body>
 	<h1>訂單列表</h1>
-	<c:if test="${orderPageQty > 0}">
-  		<b><font color=red>第${currentPage}/${orderPageQty}頁</font></b>
-	</c:if>
 	<br>
 	<img width="140px" height="100px" alt="要飛囉貓貓" src="${pageContext.request.contextPath}/img/cat.png">
 	<img width="140px" height="100px" alt="要飛囉貓貓" src="${pageContext.request.contextPath}/img/cat.png">
@@ -30,7 +27,6 @@
 		</tr>
 		
 		<c:forEach var="order" items="${orderList}">
-		<p>測試：${orderList[0].orderId}</p>
 			<tr>
 				<td>${order.orderId}</td>
 				<td>${order.memberId}</td>
@@ -39,7 +35,7 @@
 				<td>${order.total}</td>
 				<td>${order.token}</td>
 				<td>${order.payable}</td>
-				<td>${order.status}</td>
+				<td>${order.status == 0 ? '未付款' : '已付款'}</td>
 				<td>
                 <div style="display: flex; justify-content: center; gap: 5px;">
                     <form method="post" action="${pageContext.request.contextPath}/order/order.do">

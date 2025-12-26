@@ -52,5 +52,15 @@ public class OrderServiceImpl implements OrderService{
 	public void deleteOrder(int orderId) {
 		dao.delete(orderId);
 	}
+	@Override
+	public void updateOrder(Order order) {
+
+		dao.update(order);
+	}
+	@Override
+	public Order getOneOrder(int orderId) {
+		// TODO Auto-generated method stub
+		return dao.getById(orderId);
+	}
 
 }
