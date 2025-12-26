@@ -1,4 +1,4 @@
-package adol.service;
+package adol.order.service;
 
 import static adol.util.Constants.PAGE_MAX_RESULT;
 

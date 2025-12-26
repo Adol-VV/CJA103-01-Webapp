@@ -7,12 +7,12 @@
 <title>Hibernate Demo</title>
 </head>
 <body>
-	<h1>商品網頁</h1>
-	<h2>商品系統</h2>
-	<a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll">查詢所有商品</a>
+	<h1>訂單網頁</h1>
+	<h2>訂單系統</h2>
+	<a href="${pageContext.request.contextPath}/order/order.do?action=getAll">查詢所有訂單</a>
 	<br><br>
 	<h3><b>複合查詢 (使用 Criteria Query)：</b></h3>
-	<form action="${pageContext.request.contextPath}/emp/emp.do" method="post">
+	<form action="${pageContext.request.contextPath}/order/order.do" method="post">
 		<p><label>會員ID查詢訂單：</label></p>
 		<input type="text" name="memberId"><br>
 		<p><label>訂單時間範圍</label></p>
