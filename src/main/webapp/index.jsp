@@ -33,5 +33,7 @@
 		<p><input type="submit" value="送出"></p>
 		<input type="hidden" name="action" value="compositeQuery">
 	</form>
+	
+	<a href="${pageContext.request.contextPath}/order/OrdersAdd.jsp">新增訂單</a>
 </body>
 </html>

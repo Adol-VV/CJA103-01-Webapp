@@ -128,5 +128,15 @@ public class OrderDAOImpl implements OrderDAO{
 		return getSession().createQuery("select count(*) from Order",long.class).
 				getSingleResult();
 	}
+	@Override
+	public long getMember() {
+		return getSession().createNativeQuery("SELECT COUNT(*) FROM member", long.class)
+	    		.getSingleResult();
+	}
+	@Override
+	public long getOri() {
+		return getSession().createNativeQuery("SELECT COUNT(*) FROM organizer", long.class)
+	    		.getSingleResult();
+	}
 
 }

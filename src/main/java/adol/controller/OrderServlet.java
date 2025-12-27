@@ -50,6 +50,9 @@ public class OrderServlet extends HttpServlet{
 		case "updateOrder":
 			forwardPath = updateOrder(req,res);
 			break;
+		case "addOrder":
+			forwardPath = addOrder(req,res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -58,7 +61,106 @@ public class OrderServlet extends HttpServlet{
 		dispatcher.forward(req, res);
 	};
 	
+	private String addOrder(HttpServletRequest req, HttpServletResponse res) {
+
+		List<String> errorMsgs = new LinkedList<>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		
+		String mId = req.getParameter("memberId");
+		String oId = req.getParameter("organizerId");
+		String ttl = req.getParameter("total");
+		String tk = req.getParameter("token");
+		String status = req.getParameter("status");
+		int memberT = orderService.getMemberTotal();
+		int orgT = orderService.getOrganizerIdTotal();
+		Integer memberId = null;
+		if(mId.trim().isEmpty()) {
+			errorMsgs.add("會員ID必須填寫");
+		}else {
+			if(mId!=null && mId.trim().length() !=0) {
+				
+				try {
+					memberId = Integer.valueOf(mId.trim());
+					if(memberId<0 || memberId > memberT) {
+						errorMsgs.add("會員ID不能小於0與大於"+memberT);
+					}
+				}catch(NumberFormatException e){
+					errorMsgs.add("會員ID必須為數字");
+				}
+			}
+		}
+		Integer organizerId = null;
+		if(oId.trim().isEmpty()) {
+			errorMsgs.add("主辦方ID必須填寫");
+		}else {
+			if(oId!=null && oId.trim().length() !=0) {
+				
+				try {
+					organizerId = Integer.valueOf(oId.trim());
+					if(organizerId<0|| organizerId > orgT) {
+						errorMsgs.add("主辦方ID不能小於0與大於"+ orgT);
+					}
+				}catch(NumberFormatException e){
+					errorMsgs.add("主辦方ID必須為數字");
+				}
+				}
+		}
+		Integer total = null;
+		if(ttl.trim().isEmpty()) {
+			errorMsgs.add("金額必須填寫");
+		}else {
+			if(ttl!=null && ttl.trim().length() !=0) {
+				
+				try {
+					total = Integer.valueOf(ttl.trim());
+					if(total<0) {
+						errorMsgs.add("金額不能小於0");
+					}
+				}catch(NumberFormatException e){
+					errorMsgs.add("金額必須為數字");
+				}
+			}
+		}
+		Integer token = null;
+		if(tk.trim().isEmpty()) {
+			errorMsgs.add("折價幣必須填寫");
+		}else {
+			if(tk!=null && tk.trim().length() !=0) {
+				
+				try {
+					token = Integer.valueOf(tk.trim());
+					if(token<0) {
+						errorMsgs.add("折價幣不能小於0");
+					}
+				}catch(NumberFormatException e){
+					errorMsgs.add("折價幣必須為數字");
+				}
+			}
+		}
+		
+		if(total !=null && token !=null && total>token) {
+			errorMsgs.add("金額價格必須大於折價幣");
+		}
+		
+		if(!errorMsgs.isEmpty()) {
+			return "/order/OrdersAdd.jsp";
+		}
+		
+		Order order = new Order();
+		order.setMemberId(memberId);
+		order.setOrganizerId(organizerId);
+		order.setTotal(total);
+		order.setToken(token);
+		order.setPayable(total-token);
+		order.setStatus(Byte.valueOf(status));
+		orderService.addOrder(order);
+		
+		return "/index.jsp";
+	}
+	
 	private String updateOrder(HttpServletRequest req, HttpServletResponse res) {
+		
 		String id = req.getParameter("orderId");
 		int orderId = Integer.valueOf(id);
 		int total = Integer.valueOf(req.getParameter("total"));

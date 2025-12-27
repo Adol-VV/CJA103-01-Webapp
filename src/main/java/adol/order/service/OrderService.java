@@ -14,4 +14,7 @@ public interface OrderService {
 	Order getOneOrder(int orderId);
 	void deleteOrder(int orderId);
 	void updateOrder(Order order);
+	void addOrder(Order order);
+	int getMemberTotal();
+	int getOrganizerIdTotal();
 }

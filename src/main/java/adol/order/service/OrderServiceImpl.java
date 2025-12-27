@@ -59,8 +59,20 @@ public class OrderServiceImpl implements OrderService{
 	}
 	@Override
 	public Order getOneOrder(int orderId) {
-		// TODO Auto-generated method stub
 		return dao.getById(orderId);
+	}
+	@Override
+	public void addOrder(Order order) {
+		dao.insert(order);
+	}
+	@Override
+	public int getMemberTotal() {
+
+		return (int)dao.getMember();
+	}
+	@Override
+	public int getOrganizerIdTotal() {
+		return (int)dao.getOri();
 	}
 
 }
