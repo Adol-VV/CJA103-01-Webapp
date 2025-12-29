@@ -139,7 +139,7 @@ public class OrderServlet extends HttpServlet{
 			}
 		}
 		
-		if(total !=null && token !=null && total>token) {
+		if(total !=null && token !=null && total<token) {
 			errorMsgs.add("金額價格必須大於折價幣");
 		}
 		
