@@ -1,6 +1,7 @@
 package adol.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -170,7 +171,11 @@ public class OrderServlet extends HttpServlet{
 		order.setPayable(order.getTotal()-order.getToken());
 		order.setStatus(Byte.valueOf(status));
 		orderService.updateOrder(order);
-		return "/index.jsp";
+		Order updatedOrder = orderService.getOneOrder(orderId);
+		List<Order> orderList= new ArrayList<Order>();
+		orderList.add(updatedOrder);
+		req.setAttribute("orderList", orderList);
+		return "/order/listCompositeQueryOrders.jsp";
 	}
 	
 	private String updatePage(HttpServletRequest req, HttpServletResponse res) {
