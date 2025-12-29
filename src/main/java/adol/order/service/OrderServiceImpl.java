@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 	@Override
 	public int getOrganizerIdTotal() {
-		return (int)dao.getOri();
+		return (int)dao.getOrganizer();
 	}
 
 }

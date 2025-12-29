@@ -16,6 +16,6 @@ public interface OrderDAO {
 	List<Order> getByCompositeQuery(Map<String, String> map);
 	long getTotal();
 	long getMember();
-	long getOri();
+	long getOrganizer();
 
 }

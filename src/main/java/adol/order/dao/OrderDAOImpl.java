@@ -134,7 +134,7 @@ public class OrderDAOImpl implements OrderDAO{
 	    		.getSingleResult();
 	}
 	@Override
-	public long getOri() {
+	public long getOrganizer() {
 		return getSession().createNativeQuery("SELECT COUNT(*) FROM organizer", long.class)
 	    		.getSingleResult();
 	}

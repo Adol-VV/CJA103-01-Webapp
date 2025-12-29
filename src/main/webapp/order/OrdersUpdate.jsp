@@ -8,6 +8,16 @@
 <title>List Orders</title>
 </head>
 <body>
+		<c:if test="${not empty errorMsgs}">
+		<div style="color: red; background-color: #fff0f0; border: 1px solid red; padding: 10px; margin: 10px 0; border-radius: 5px;">
+			<b>請修正以下錯誤：</b>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li>${message}</li>
+				</c:forEach>
+			</ul>
+		</div>
+	</c:if>
 	<br>
 	<img width="140px" height="100px" alt="要飛囉貓貓" src="${pageContext.request.contextPath}/img/cat.png">
 	<form action="${pageContext.request.contextPath}/order/order.do" method="post">

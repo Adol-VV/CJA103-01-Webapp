@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,7 @@
 				<td>${order.orderId}</td>
 				<td>${order.memberId}</td>
 				<td>${order.organizerId}</td>
-				<td>${order.createdDate}</td>
+				<td><fmt:formatDate value="${order.createdDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<td>${order.total}</td>
 				<td>${order.token}</td>
 				<td>${order.payable}</td>

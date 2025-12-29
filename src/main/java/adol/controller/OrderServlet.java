@@ -161,10 +161,24 @@ public class OrderServlet extends HttpServlet{
 	}
 	
 	private String updateOrder(HttpServletRequest req, HttpServletResponse res) {
+		List<String> errorMsgs = new LinkedList<>();
+		req.setAttribute("errorMsgs", errorMsgs);
 		
 		String id = req.getParameter("orderId");
 		int orderId = Integer.valueOf(id);
-		int total = Integer.valueOf(req.getParameter("total"));
+		String allTotal = req.getParameter("total");
+		if(allTotal.isEmpty()) {
+			errorMsgs.add("金額不能空白");
+		}
+		if(allTotal!=null && allTotal.trim().length() !=0) {
+			if(!allTotal.trim().matches("\\d+")) {
+				errorMsgs.add("ID 必須是數字");
+			}
+		}
+		if(!errorMsgs.isEmpty()) {
+			return updatePage(req,res);
+		}
+		int total = Integer.valueOf(allTotal);
 		String status = req.getParameter("status");
 		Order order = orderService.getOneOrder(Integer.valueOf(id));
 		order.setTotal(total);
@@ -175,6 +189,8 @@ public class OrderServlet extends HttpServlet{
 		List<Order> orderList= new ArrayList<Order>();
 		orderList.add(updatedOrder);
 		req.setAttribute("orderList", orderList);
+		
+		
 		return "/order/listCompositeQueryOrders.jsp";
 	}
 	

@@ -27,7 +27,8 @@
 		<p><label>會員ID查詢訂單：</label></p>
 		<input type="text" name="memberId"><br>
 		<p><label>訂單時間範圍</label></p>
-		<input type="date" name="startorderdate"> ～ <input type="date" name="endorderdate"><br>
+		<input type="date" name="startorderdate" onchange="endorderdate.min=this.value">～ 
+		<input type="date" name="endorderdate" id="endorderdate"><br>
 		<p><label>價格範圍</label></p>
 		<input type="text" name="startpay"> ～ <input type="text" name="endpay"><br>
 		<p><input type="submit" value="送出"></p>
@@ -35,5 +36,6 @@
 	</form>
 	
 	<a href="${pageContext.request.contextPath}/order/OrdersAdd.jsp">新增訂單</a>
+	
 </body>
 </html>
